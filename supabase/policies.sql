@@ -1,0 +1,15 @@
+create or replace function public.is_admin() returns boolean language sql stable security definer set search_path = public as $$ select exists(select 1 from profiles where id = auth.uid() and role = 'admin'); $$;
+create policy "public read active categories" on product_categories for select using (is_active = true or public.is_admin());
+create policy "public read active products" on products for select using (is_active = true or public.is_admin());
+create policy "public read product images" on product_images for select using (true);
+create policy "users manage own profile" on profiles for all using (id = auth.uid() or public.is_admin()) with check (id = auth.uid() or public.is_admin());
+create policy "users create inquiries" on inquiries for insert with check (true);
+create policy "users read own inquiries" on inquiries for select using (user_id = auth.uid() or email = (select email from auth.users where id = auth.uid()) or public.is_admin());
+create policy "public create contact messages" on contact_messages for insert with check (true);
+create policy "admins manage categories" on product_categories for all using (public.is_admin()) with check (public.is_admin());
+create policy "admins manage products" on products for all using (public.is_admin()) with check (public.is_admin());
+create policy "admins manage images" on product_images for all using (public.is_admin()) with check (public.is_admin());
+create policy "admins manage messages" on contact_messages for all using (public.is_admin()) with check (public.is_admin());
+create policy "users read own quotations" on quotations for select using (user_id = auth.uid() or public.is_admin());
+create policy "admins manage quotations" on quotations for all using (public.is_admin()) with check (public.is_admin());
+insert into storage.buckets (id, name, public) values ('product-images','product-images',true),('site-assets','site-assets',true),('avatars','avatars',false) on conflict (id) do nothing;
