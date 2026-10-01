@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin Dashboard | YiwuCommerce</title>
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-page">
+  <main class="admin-shell">
+    <section class="admin-login" id="login-view">
+      <a class="brand" href="index.html"><span class="brand-mark">Y</span><span><strong>YiwuCommerce</strong><small>ADMIN CONSOLE</small></span></a>
+      <div class="admin-panel">
+        <span class="eyebrow">SECURE ACCESS</span>
+        <h1>Admin Dashboard</h1>
+        <p>Monitor inquiries, contact messages, and catalog activity from one place.</p>
+        <form id="login-form">
+          <label for="admin-email">Email address</label>
+          <input id="admin-email" type="email" autocomplete="username" required>
+          <label for="admin-password">Password</label>
+          <input id="admin-password" type="password" autocomplete="current-password" required>
+          <p class="admin-status" id="login-status" role="status" aria-live="polite"></p>
+          <button class="button" type="submit">Sign in</button>
+        </form>
+      </div>
+    </section>
+    <section class="admin-dashboard" id="dashboard-view" hidden>
+      <header class="admin-header">
+        <div><span class="eyebrow">OPERATIONS</span><h1>Monitoring Dashboard</h1><p id="admin-user"></p></div>
+        <div class="admin-actions"><button class="button outline-dark" id="refresh-button" type="button">Refresh</button><button class="button secondary" id="signout-button" type="button">Sign out</button></div>
+      </header>
+      <p class="admin-status" id="dashboard-status" role="status" aria-live="polite"></p>
+      <div class="admin-metrics" id="metrics"></div>
+      <div class="admin-grid">
+        <section class="admin-card"><div class="admin-card-heading"><h2>Recent inquiries</h2><span id="inquiry-count"></span></div><div class="admin-table-wrap"><table><thead><tr><th>Name</th><th>Company</th><th>Status</th><th>Received</th></tr></thead><tbody id="inquiries"></tbody></table></div></section>
+        <section class="admin-card"><div class="admin-card-heading"><h2>Recent messages</h2><span id="message-count"></span></div><div class="admin-table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Status</th><th>Received</th></tr></thead><tbody id="messages"></tbody></table></div></section>
+      </div>
+    </section>
+  </main>
+  <script src="data/admin-config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
